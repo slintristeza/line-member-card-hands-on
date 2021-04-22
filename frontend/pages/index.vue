@@ -35,8 +35,6 @@ import axiosBase from "axios"
 import VueQrcode from '@chenfengyuan/vue-qrcode'
 import { mdiFruitPineapple } from '@mdi/js'
 
-const LIFF_ID = process.env.LIFF_ID
-
 const axios = axiosBase.create({
   baseURL: '/api',
   headers: {
@@ -57,6 +55,18 @@ const qrOption = {
   }
 }
 export default {
+  async asyncData ({ $config }) {
+    console.log($config.LIFF_ID);
+    // 1. LIFFの初期化
+    await liff.init({liffId: $config.LIFF_ID})
+      .catch((err) => {
+        console.error(err)
+        window.alert('LIFFの初期化失敗。\n' + err)
+      })
+    return {
+      liffId: $config.LIFF_ID2,
+    }
+  },
   components: {VueQrcode},
   data() {
     return {
@@ -67,12 +77,6 @@ export default {
     }
   },
   async mounted() {
-    // 1. LIFFの初期化
-    await liff.init({liffId: LIFF_ID})
-      .catch((err) => {
-        console.error(err)
-        window.alert('LIFFの初期化失敗。\n' + err)
-      })
     // 2. LINEに未認証の場合、ログイン画面にリダイレクト
     if (!liff.isLoggedIn()) {
       await liff.login()

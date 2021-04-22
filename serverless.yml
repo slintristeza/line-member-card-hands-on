@@ -1,13 +1,13 @@
-service: your-name-line-member-card
+service: slint-line-member-card
 
-frameworkVersion: ">=1.34.0 <2.0.0"
+frameworkVersion: "2"
 custom:
   app:
     PUBLIC_BUCKET: ${self:custom.stack}
     DEPLOYMENT_BUCKET: ${self:custom.stack}-deployment
     S3_WEB_DOMAIN: ${self:custom.stack}.s3.${self:custom.region}.amazonaws.com
-    LINE_CHANNEL_ID: ${ssm:/${self:custom.stage}/${self:service}/LINE_CHANNEL_ID}
-    LIFF_ID: ${ssm:/${self:custom.stage}/${self:service}/LIFF_ID}
+    LINE_CHANNEL_ID: ${file(./secrets.yml):LINE_CHANNEL_ID}
+    LIFF_ID: ${file(./secrets.yml):LIFF_ID}
     USER_TABLE: ${self:custom.stack}-user
     VISIT_TABLE: ${self:custom.stack}-visit
   region: ${opt:region, self:provider.region}

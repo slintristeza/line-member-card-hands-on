@@ -31,6 +31,8 @@ module.exports = {
   components: true,
   env: {
     NODE_ENV: process.env.NODE_ENV,
+  },
+  publicRuntimeConfig: {
     LIFF_ID: process.env.LIFF_ID
   },
   /*

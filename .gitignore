@@ -54,3 +54,7 @@ jspm_packages
 
 # Serverless
 .serverless/
+
+# secrets
+secrets.yml
+.env
